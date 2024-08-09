@@ -126,14 +126,17 @@ function findEmail() {
 
   const rawEmails = input.match(emailRegex) || [];
 
-  const uniqueEmails = [...new Set(rawEmails)]; // Use a Set for faster unique filtering
+  const uniqueEmails = [...new Set(rawEmails)];
 
   const filteredEmails = uniqueEmails.filter((email) => {
     const shouldInclude =
       filterType === "1" ? email.includes(string) : !email.includes(string);
-    const shouldKeep = !removeKeywords.some((keyword) =>
-      email.includes(keyword)
-    );
+
+    let shouldKeep = true;
+    if (document.extractor.UseKeyword.checked) {
+      shouldKeep = !removeKeywords.some((keyword) => email.includes(keyword));
+    }
+
     return shouldInclude && shouldKeep;
   });
 
@@ -160,5 +163,3 @@ function findEmail() {
   document.extractor.count.value = filteredEmails.length;
   document.extractor.output.value = email;
 }
-
-/////  End -->
