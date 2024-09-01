@@ -163,3 +163,4 @@ function copy() {
     document.extractor.count.value = filteredEmails.length;
     document.extractor.output.value = email;
   }
+  
